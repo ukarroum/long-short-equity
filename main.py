@@ -1,5 +1,9 @@
 from DataLoad.QuandlAssetLoader import QuandlAssetLoader
+from features_extraction import features_extraction
 
 loader = QuandlAssetLoader()
 
-print(loader.get_cac40_assets())
+X = loader.get_asset("EURONEXT/BNP")
+
+X = features_extraction.get_assets_price_features(X)
+print(X)
