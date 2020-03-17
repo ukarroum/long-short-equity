@@ -28,19 +28,17 @@ def get_assets_price_features(df_assets, nb_days_window=5):
     return X.dropna()
 
 
-def get_assets_rankings(X, nb_days_end_period=None, end_period=None, nb_long=5, nb_short=5):
-    """ Rank the assets based on their future performance at end_period or after nb_end_period
-    (starting from the first date). Please note that you can't specify both arguments
+def get_return_to_volatility(X, nb_days_end_period=None):
+    """ Rank the assets based on their future performance at after nb_end_period.
 
         :param X : the input Dataset, this is pandas dataframe.
-        :param nb_days_end_period : Number of days (from the first date) to end of the hedging period
-        :param end_period : the date of the end of hedging period.
-        :param nb_long : The number of assets to long (the best ones)
-        :param nb_short : The number of assets to short (the worst one), note that nb_long mayb be different
+        :param nb_days_end_period : Number of days to the end of the hedging period, please note thet
+                                    the days in question are business days which mean friday + 2 = tuesday and not sunday
 
-        :return Y : the label vector, i use the following convention :
-                        1 - asset to long
-                        -1 - asset to short
-                        0 - middle of the table
+        :return Y : A vector of returns to volatility for each asset after nb_days_end_period days
 
         """
+    
+    y = (X.Last.shift(-nb_days_end_period) - X.Last)/X.Last
+
+    return y.dropna()
