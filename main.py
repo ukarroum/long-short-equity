@@ -1,11 +1,10 @@
-from DataLoad.QuandlAssetLoader import QuandlAssetLoader
+from dataLoad.QuandlAssetLoader import QuandlAssetLoader
 from features_extraction import features_extraction
 
 loader = QuandlAssetLoader()
 
 X = loader.get_asset("EURONEXT/BNP")
 
-X = features_extraction.get_assets_price_features(X)
+X, y = features_extraction.get_featuress(X, 5)
 
-y = features_extraction.get_return_to_volatility(X, 5)
 print(X)

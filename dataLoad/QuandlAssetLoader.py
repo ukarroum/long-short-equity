@@ -3,7 +3,7 @@
 import quandl
 
 import config
-from DataLoad.AssetLoader import AssetLoader
+from dataLoad.AssetLoader import AssetLoader
 
 
 class QuandlAssetLoader(AssetLoader):
